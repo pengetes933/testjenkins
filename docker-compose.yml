@@ -1,0 +1,55 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8443:8443"
+    depends_on:
+      - db
+      - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tixfest_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: 
+      PASSWORD_SUPER_ADMIN: tixfestbergembira
+      EMAIL_SUPER_ADMIN: b4mb4ng.hiruzen@gmail.com
+      JWT_SECRET: secret
+      JWT_EXPIRATION_IN_MINUTES_ACCESS_TOKEN: 5
+      REFRESH_TOKEN_EXPIRATION_IN_HOUR: 24
+      JWT_ISSUER: "Tixfest API"
+      AES_SECRET: secret1234567890
+      MIDTRANS_CLIENT_KEY: SB-Mid-client-9Q18btUiP7MJTtEW
+      MIDTRANS_SERVER_KEY: SB-Mid-server-AaHc7Oae0KMiXmBg7Oj3_Pq_
+      MIDTRANS_ISPRODUCTION: "false"
+      MIDTRANS_MERCHANT_ID: G980820282
+      MAIL_SMTP_USERNAME: b4mb4ng.hiruzen@gmail.com
+      MAIL_SMTP_PASSWORD: rnanpgvbcfuirdag
+      STORAGE_URL: https://storage.agungtriwibowo.com
+      STORAGE_TOKEN: 8305e153-6897-4dc9-815c-823e38cd25a7
+      STORAGE_FILE_MAX_SIZE: 2097152
+      SERVER_SSL_KEY_STORE: file:/app/keystore.jks  # Sesuaikan path keystore
+      SERVER_SSL_KEY_STORE_PASSWORD: overridecom
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: tixfest_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6-alpine
+    # ports:
+    #   - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
