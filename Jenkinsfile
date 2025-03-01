@@ -25,7 +25,7 @@ pipeline {
         //         }
         //     }
         // }
-        
+
         
         stage('Deploy ke Staging') {
             steps {
@@ -37,7 +37,7 @@ pipeline {
                     sh """
                     if command -v docker compose &> /dev/null; then
                         docker compose down || echo "docker compose down gagal tapi lanjut"
-                        docker compose up -d || echo "docker compose up gagal tapi lanjut"
+                        docker-compose up --build -d || echo "docker compose up gagal tapi lanjut"
                     else
                         echo "docker compose tidak tersedia - skip deployment"
                     fi
