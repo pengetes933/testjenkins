@@ -14,13 +14,6 @@ pipeline {
             }
         }
         
-        // stage('Build dengan Maven') {
-        //     steps {
-        //         // Gunakan Maven yang sudah terinstal di sistem Jenkins
-        //         sh 'mvn clean package -DskipTests || echo "Maven build gagal tapi lanjut"'
-        //     }
-        // }
-        
         // stage('Unit Tests') {
         //     steps {
         //         sh 'mvn test || echo "Tests gagal tapi lanjut"'
@@ -44,7 +37,7 @@ pipeline {
                         docker compose down || echo "docker compose down gagal tapi lanjut"
                         docker compose up -d || echo "docker compose up gagal tapi lanjut"
                     else
-                        echo "docker-compose tidak tersedia - skip deployment"
+                        echo "docker compose tidak tersedia - skip deployment"
                     fi
                     """
                 }
