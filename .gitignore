@@ -19,7 +19,7 @@ target/
 *.iml
 *.ipr
 
-application-dev.properties
+# application-dev.properties
 application-stag.properties
 application-prod.properties
 
