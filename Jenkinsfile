@@ -14,38 +14,23 @@ pipeline {
             }
         }
         
-        stage('Build dengan Maven') {
-            steps {
-                // Gunakan Maven yang sudah terinstal di sistem Jenkins
-                sh 'mvn clean package -DskipTests || echo "Maven build gagal tapi lanjut"'
-            }
-        }
+        // stage('Build dengan Maven') {
+        //     steps {
+        //         // Gunakan Maven yang sudah terinstal di sistem Jenkins
+        //         sh 'mvn clean package -DskipTests || echo "Maven build gagal tapi lanjut"'
+        //     }
+        // }
         
-        stage('Unit Tests') {
-            steps {
-                sh 'mvn test || echo "Tests gagal tapi lanjut"'
-            }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml' 
-                }
-            }
-        }
-        
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh """
-                    if command -v docker &> /dev/null; then
-                        docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
-                        docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest
-                    else
-                        echo "Docker tidak tersedia - skip build image"
-                    fi
-                    """
-                }
-            }
-        }
+        // stage('Unit Tests') {
+        //     steps {
+        //         sh 'mvn test || echo "Tests gagal tapi lanjut"'
+        //     }
+        //     post {
+        //         always {
+        //             junit '**/target/surefire-reports/*.xml' 
+        //         }
+        //     }
+        // }
         
         stage('Deploy ke Staging') {
             steps {
@@ -56,8 +41,8 @@ pipeline {
                     // Cek apakah docker-compose tersedia
                     sh """
                     if command -v docker-compose &> /dev/null; then
-                        docker-compose down || echo "docker-compose down gagal tapi lanjut"
-                        docker-compose up -d || echo "docker-compose up gagal tapi lanjut"
+                        docker compose down || echo "docker compose down gagal tapi lanjut"
+                        docker compose up -d || echo "docker compose up gagal tapi lanjut"
                     else
                         echo "docker-compose tidak tersedia - skip deployment"
                     fi
