@@ -13,18 +13,6 @@ pipeline {
                 checkout scm
             }
         }
-        
-
-        // stage('Unit Tests') {
-        //     steps {
-        //         sh 'mvn test || echo "Tests gagal tapi lanjut"'
-        //     }
-        //     post {
-        //         always {
-        //             junit '**/target/surefire-reports/*.xml' 
-        //         }
-        //     }
-        // }
 
         
         stage('Deploy ke Staging') {
