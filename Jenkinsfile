@@ -33,7 +33,7 @@ pipeline {
                     
                     // Cek apakah docker-compose tersedia
                     sh """
-                    if command -v docker-compose &> /dev/null; then
+                    if command -v docker compose &> /dev/null; then
                         docker compose down || echo "docker compose down gagal tapi lanjut"
                         docker compose up -d || echo "docker compose up gagal tapi lanjut"
                     else
